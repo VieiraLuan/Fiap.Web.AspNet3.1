@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Fiap.Web.AspNet3.Models.GerenteModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Gerentes</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="Gerente" role="button">Cadastrar Gerente</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sobrenome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sobrenome)
+                </td>
+                <td>
+                    <button asp-action="Edit" asp-route-id="@item.GerenteId" class="btn-warning">Editar</button> |
+                    <button asp-action="Details" asp-route-id="@item.GerenteId" class="btn-primary">Detalhes</button> |
+                    <button asp-action="Delete" asp-route-id="@item.GerenteId" class="btn-danger">Excluir</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

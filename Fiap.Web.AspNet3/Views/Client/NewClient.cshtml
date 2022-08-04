@@ -1,0 +1,67 @@
+﻿@model ClientModel;/*Aqui importamos a Model em questão*/
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well">
+                <h2>Cliente - Novo</h2>
+                @if (!ViewData.ModelState.IsValid)
+                {/*Aqui validamos se o formulario está de acordo com o Model*/
+                    <div asp-validation-summary="All" class="alert alert alert-warning" role="alert"></div>
+                }
+                else
+                {/*Aqui criamos o form e definimos
+                    a action para qual controler ele vai qnd submeter
+                    e para qual metodo ele vai cair
+                    asp-controler para controler
+                    asp-action para qual o metodo
+
+                    definimos um SPAN para retornar se tem algum campo que não está no padrao das Annotations
+                    definidas na Model
+
+                    asp-for ajuda na inclusão de deficientes e aciona todos as anotations da model
+                    asp-validation pega as anotation do model*/
+                    <form asp-action="NewClient" asp-controller="Client" method="post">
+                        <div class="form-group">
+                            <label class="control-label" asp-for="Name"></label>
+                            <input type="text" class="form-control col-5" asp-for="Name" />
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="Email"></label>
+                            <input type="email" class="form-control col-5" asp-for="Email" />
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="Birth"></label>
+                            <input class="form-control col-5" asp-for="Birth" />
+                            <span class="text-danger" asp-validation-for="Birth"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="Observation">Observação</label>
+                            <textarea class="form-control" asp-for="Observation"></textarea>
+                            <span class="text-danger" asp-validation-for="Observation"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" asp-for="RepresentanteId">Representante</label>
+                            <select asp-for="RepresentanteId" asp-items="@ViewBag.representantes">
+                                <option value="">Selecione</option>
+                                
+                            </select>
+                            <span class="text-danger" asp-validation-for="RepresentanteId"></span>
+                        </div>
+
+
+
+
+                        <a asp-action="Index" asp-controller="Client" class="btn btn-default btn-lg">Cancelar</a>
+                        <button type="submit" class="btn btn-primary btn-lg">Gravar</button>
+                    </form>
+                    /*No Link podemos substituir o href por um action e um controler para redirecionar*/
+                }
+            </div>
+        </div>
+    </div>
+</div>

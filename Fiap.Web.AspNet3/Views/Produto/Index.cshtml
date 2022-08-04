@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ProdutoModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <h1>Produtos</h1>
+            <p class="toolbar">
+
+                <a class="create btn btn-outline-dark" asp-controller="Produto" asp-action="Create">Novo Produto</a>
+            </p>
+
+            @{
+                String mensagemSucesso = (String)TempData["mensagemSucesso"];
+                if (!String.IsNullOrEmpty(mensagemSucesso))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h4>@mensagemSucesso</h4>
+                    </div>
+                }
+            }
+
+
+
+
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-striped" border="1" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th data-field="id">Id</th>
+                            <th data-field="name">Nome</th>
+                            <th class="actions" width="220">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>#@item.ProdutoId</td>
+                                <td>@item.ProdutoNome</td>
+                                <td>
+                                    <a class="btn btn-success btn-sm"
+                               asp-controller="Produto"
+                               asp-action="Details"
+                               asp-route-id="@item.ProdutoId">Detalhes</a>
+                                    <a class="btn btn-warning btn-sm"
+                               asp-controller="Produto"
+                               asp-action="Edit"
+                               asp-route-id="@item.ProdutoId">Edit</a>
+                                    <a class="btn btn-danger btn-sm"
+                               asp-controller="Produto"
+                               asp-action="Delete"
+                               asp-route-id="@item.ProdutoId">Excluir</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    <h4>Não existem lojas cadastradas até o momento.</h4>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
