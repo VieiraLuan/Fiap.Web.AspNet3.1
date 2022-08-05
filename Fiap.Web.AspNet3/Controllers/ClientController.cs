@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Fiap.Web.AspNet3.Controllers.Filters;
 using Fiap.Web.AspNet3.Models;
 using Fiap.Web.AspNet3.Repository.Interface;
 using Fiap.Web.AspNet3.ViewModels;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Fiap.Web.AspNet3.Controllers
 {
+    [FiapLogFilter]
     public class ClientController : Controller
     {
 
@@ -25,17 +27,24 @@ namespace Fiap.Web.AspNet3.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //var listaClientes = clienteRepository.FindAllOrderByNomeAsc();
-            //var listaClientes = clienteRepository.FindAllOrderByNomeDesc();
-            // var listaClientes = clienteRepository.FindAllOrderByNome("Luan");
 
-            var vm = new ClientePesquisaViewModel();
+            var isLogged = String.IsNullOrEmpty(HttpContext.Session.GetString("email")) ? false : true;
+
+            if (!isLogged)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+
+                var vm = new ClientePesquisaViewModel();
 
 
-            // ViewBag.representantes = ComboRepresentantes();
-            vm.Representantes = ComboRepresentantes();
+                // ViewBag.representantes = ComboRepresentantes();
+                vm.Representantes = ComboRepresentantes();
 
-            return View(vm);
+                return View(vm);
+            }
         }
 
 

@@ -1,9 +1,11 @@
-﻿using Fiap.Web.AspNet3.Models;
+﻿using Fiap.Web.AspNet3.Controllers.Filters;
+using Fiap.Web.AspNet3.Models;
 using Fiap.Web.AspNet3.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiap.Web.AspNet3.Controllers
 {
+    [FiapLogFilter]
     public class RepresentanteController : Controller
     {
 

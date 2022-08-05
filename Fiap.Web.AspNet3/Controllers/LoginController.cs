@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Fiap.Web.AspNet3.Controllers.Filters;
 using Fiap.Web.AspNet3.Models;
 using Fiap.Web.AspNet3.Repository.Interface;
 using Fiap.Web.AspNet3.ViewModels;
@@ -8,7 +9,7 @@ namespace Fiap.Web.AspNet3.Controllers
 {
 
 
-
+    [FiapLogFilter]
     public class LoginController : Controller
     {
 
@@ -20,10 +21,18 @@ namespace Fiap.Web.AspNet3.Controllers
             this.usuarioRepository = usuarioRepository;
             this.mapper = mapper;
         }
-
+        [FiapLogFilter]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+     
+            return RedirectToAction("Index","Home");
         }
 
 
@@ -32,7 +41,19 @@ namespace Fiap.Web.AspNet3.Controllers
         {
             var usuario = mapper.Map<UsuarioModel>(loginViewModel);
 
-            usuarioRepository.Login(usuario);
+            var usuarioRetorno = usuarioRepository.Login(usuario);
+
+            if(usuarioRetorno == null)
+            {
+                ViewBag.ErrorMessage = "Usuario ou senha inválido";
+                return View("Index");
+            }
+            else
+            {
+                HttpContext.Session.SetString("email", loginViewModel.UsuarioEmail);
+                HttpContext.Session.SetString("nome", usuarioRetorno.UsuarioNome);
+                return RedirectToAction("Index","Home");
+            }
 
             return View();
         }

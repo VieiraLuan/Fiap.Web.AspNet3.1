@@ -15,7 +15,9 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("databaseUrl");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging(true));
 
+//Session
 
+builder.Services.AddSession();
 
 #region IoC
 builder.Services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
@@ -64,6 +66,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
