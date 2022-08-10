@@ -6,6 +6,7 @@ using System.Diagnostics;
 namespace Fiap.Web.AspNet3.Controllers
 {
     [FiapLogFilter]
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

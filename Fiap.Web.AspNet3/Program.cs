@@ -26,6 +26,7 @@ builder.Services.AddScoped<IFornecedorRepository, FornecedoresRepository>();
 builder.Services.AddScoped<IGerenteRepository, GerenteRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ILojaRepository, LojaRepository>();
 #endregion
 
 
@@ -52,6 +53,14 @@ var mapperConfig = new AutoMapper.MapperConfiguration(c =>
     //c.CreateMap<RepresentanteModel, RepresentanteViewModel>().
     //ForMember(vm => vm.RepresentanteId, m => m.MapFrom(d => d.RepresentanteId)).
     //ForMember(vm => vm.RepresentanteId, m => m.MapFrom(d => d.RepresentanteId);
+
+    //Loja
+    c.CreateMap<LojaModel, LojaViewModel>();
+    c.CreateMap<LojaViewModel,LojaModel>();
+
+    //Produto
+    c.CreateMap<ProdutoModel, CadastroProdutoViewModel>();
+    c.CreateMap<CadastroProdutoViewModel, ProdutoModel>();
 });
 
 IMapper mapper = mapperConfig.CreateMapper();

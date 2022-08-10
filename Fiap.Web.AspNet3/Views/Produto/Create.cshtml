@@ -1,4 +1,4 @@
-﻿@model Fiap.Web.AspNet3.Models.ProdutoLojaModel
+﻿@model Fiap.Web.AspNet3.ViewModels.CadastroProdutoViewModel
 
 <div class="container">
     <div class="row">
@@ -7,21 +7,44 @@
                 <h2>Produto</h2>
 
                 <form asp-controller="Produto" asp-action="Create" method="post">
+
                     <div class="form-group">
-                        <label class="control-label" asp-for="Produto.ProdutoNome"></label>
-                        <input class="form-control col-5" asp-for="Produto.ProdutoNome" />
+                        <label class="control-label" asp-for="ProdutoNome"></label>
+                        <input class="form-control col-5" asp-for="ProdutoNome" />
                     </div>
-                    <div class="form-group">
-                        @foreach (var item in ViewBag.Lojas)
+
+                    <div>
+
+                        @if(Model.Lojas != null && Model.Lojas.Count() > 0)
+                        @foreach (var item in Model.Lojas)
                         {
-                            <input type="checkbox" value="@item.LojaId" name="LojaId" />@item.NomeLoja<br /> 
+                            <input type="checkbox" value="@item.LojaId" name="LojaId" >@item.LojaNome <br />
+
+                            
                         }
+
+
+
+
+
                     </div>
+
+
+
+
 
                     <a href="#" class="btn btn-default btn-lg">Cancelar</a>
                     <button type="submit" class="btn btn-primary btn-lg">Gravar</button>
+
+
                 </form>
+
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#colors').multiselect();
+        });
+    </script>
 </div>

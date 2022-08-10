@@ -17,7 +17,6 @@ namespace Fiap.Web.AspNet3.Repository
         public IList<ProdutoModel> FindAll()
         {
             return dataContext.Produtos.ToList<ProdutoModel>();
-
         }
 
         public ProdutoModel FindById(int id)
@@ -26,6 +25,13 @@ namespace Fiap.Web.AspNet3.Repository
             return dataContext.Produtos.Include(p => p.ProdutosLojas).
                 ThenInclude(pl => pl.Loja).
                 SingleOrDefault(p => p.ProdutoId == id);
+        }
+
+        public int Insert(ProdutoModel produtoModel)
+        {
+            dataContext.Produtos.Add(produtoModel);
+            dataContext.SaveChanges();
+            return produtoModel.ProdutoId;
         }
     }
 }

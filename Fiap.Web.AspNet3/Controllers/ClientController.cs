@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Fiap.Web.AspNet3.Controllers.Filters;
 using Fiap.Web.AspNet3.Models;
 using Fiap.Web.AspNet3.Repository.Interface;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Fiap.Web.AspNet3.Controllers
 {
     [FiapLogFilter]
+    [FiapAuthFilter]
     public class ClientController : Controller
     {
 
@@ -28,23 +28,11 @@ namespace Fiap.Web.AspNet3.Controllers
         public IActionResult Index()
         {
 
-            var isLogged = String.IsNullOrEmpty(HttpContext.Session.GetString("email")) ? false : true;
-
-            if (!isLogged)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-            else
-            {
-
                 var vm = new ClientePesquisaViewModel();
-
-
-                // ViewBag.representantes = ComboRepresentantes();
                 vm.Representantes = ComboRepresentantes();
 
                 return View(vm);
-            }
+            
         }
 
 
@@ -105,7 +93,7 @@ namespace Fiap.Web.AspNet3.Controllers
             if (ModelState.IsValid)
             {
                 clienteRepository.Insert(clientModel);
-                TempData["mensagem"] = "Cliente cadastrado com sucesso";/*Retorna Mensagem de Sucesso na View*/
+                TempData["mensagem"] = "Cliente cadastrado com sucesso";
 
                 return RedirectToAction("Index");
             }
@@ -130,13 +118,13 @@ namespace Fiap.Web.AspNet3.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ClientModel clientModel)/*Passar por parametro a classe e um objeto para carregar*/
+        public IActionResult Edit(ClientModel clientModel)
         {
 
             if (ModelState.IsValid)
             {
                 clienteRepository.Update(clientModel);
-                TempData["mensagem"] = "Cliente Alterado com Sucesso"; /*Exibe Mensagem de Sucesso na View*/
+                TempData["mensagem"] = "Cliente Alterado com Sucesso"; 
 
                 return RedirectToAction("Index");
             }

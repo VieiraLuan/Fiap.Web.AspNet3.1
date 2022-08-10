@@ -10,5 +10,7 @@ namespace Fiap.Web.AspNet3.Repository.Interface
 
         public ProdutoModel FindById(int id);
 
+        public int Insert(ProdutoModel produtoModel);
+
     }
 }

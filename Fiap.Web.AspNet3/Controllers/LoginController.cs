@@ -9,7 +9,8 @@ namespace Fiap.Web.AspNet3.Controllers
 {
 
 
-    [FiapLogFilter]
+
+
     public class LoginController : Controller
     {
 
@@ -26,7 +27,7 @@ namespace Fiap.Web.AspNet3.Controllers
         {
             return View();
         }
-
+        [FiapAuthFilter]
         [HttpGet]
         public IActionResult Logout()
         {

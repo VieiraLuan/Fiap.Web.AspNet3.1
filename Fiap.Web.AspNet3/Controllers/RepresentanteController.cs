@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Fiap.Web.AspNet3.Controllers
 {
     [FiapLogFilter]
+    [FiapAuthFilter]
     public class RepresentanteController : Controller
     {
 

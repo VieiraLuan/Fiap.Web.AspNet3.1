@@ -19,5 +19,10 @@ namespace Fiap.Web.AspNet3.Models
 
         [ForeignKey("LojaId")]
         public LojaModel Loja { get; set; }
+
+        
     }
+
+
 }
+
